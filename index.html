@@ -3,7 +3,11 @@
 <head>
 
 <title>Very simple WebRTC application with a Node.js signalling server</title>
-
+<style>
+.recording{
+	background: red;
+}
+</style>
 </head>
 
 <body>
@@ -28,6 +32,15 @@
 			</td>	
 		</tr>
 		<tr>
+			<td>
+				<canvas id="localAnalyser" width="400" height="200"></canvas>
+			</td>
+			<td>
+				<canvas id="remoteAnalyser" width="400" height="200"></canvas>
+			</td>	
+		</tr>
+				
+		<tr>
 			<td align="center">
 				<textarea rows="4" cols="60" id="dataChannelSend" disabled
 			placeholder="This will be enabled once the data channel is up..."></textarea>
@@ -43,10 +56,20 @@
 			<td></td>
 		</tr>		
 	</table>
+	<div class="record_block">
+		<button id="toggleRecord" class="idle">Record</button>
+		<a href='#' id="save">Download</a>
+		<br/>
+		<canvas id="wavedisplay" width="500" height="200"></canvas>
+	</div>
 </div>
 
-<script src='node_modules/socket.io/lib/socket.js'></script>
+<script src="/socket.io/socket.io.js"></script>
 <script src='js/lib/adapter.js'></script>
+<script src="js/recorder/audiodisplay.js"></script>
+<script src="js/recorder/recorder.js"></script>
+<script src="js/recorder/main.js"></script>
+
 <script src='js/completeNodeClientWithDataChannel.js'></script>
 
 </body>

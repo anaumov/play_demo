@@ -25,7 +25,13 @@ io.sockets.on('connection', function (socket){
         
         // Handle 'create or join' messages
         socket.on('create or join', function (room) {
-                var numClients = io.sockets.clients(room).length;
+                var clients = io.sockets.adapter.rooms[room],
+                    numClients = 0;
+                if (clients && Array.isArray(clients)){
+                    numClients = clients.length
+                } else if (clients){
+                    numClients = 1;
+                }
 
                 log('S --> Room ' + room + ' has ' + numClients + ' client(s)');
                 log('S --> Request to create or join room', room);

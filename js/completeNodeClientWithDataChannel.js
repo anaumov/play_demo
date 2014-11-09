@@ -65,7 +65,17 @@ if (room !== '') {
 }
 
 // Set getUserMedia constraints
-var constraints = {video: true, audio: true};
+var constraints = {
+  //video: true,
+  audio: {
+    mandatory: {
+      googEchoCancellation: "false",
+      googAutoGainControl: "false",
+      googNoiseSuppression: "false",
+      googHighpassFilter: "false"
+    }
+  }
+};
 
 // From this point on, execution proceeds based on asynchronous events...
 
@@ -76,6 +86,7 @@ var constraints = {video: true, audio: true};
 function handleUserMedia(stream) {
 	localStream = stream;
 	attachMediaStream(localVideo, stream);
+  gotAudioStream(stream, document.getElementById("localAnalyser"));
 	console.log('Adding local stream.');
 	sendMessage('got user media');
 }
@@ -319,6 +330,7 @@ function handleRemoteStreamAdded(event) {
   attachMediaStream(remoteVideo, event.stream);
   console.log('Remote stream attached!!.');
   remoteStream = event.stream;
+  gotAudioStream(stream, document.getElementById("remoteAnalyser"));
 }
 
 function handleRemoteStreamRemoved(event) {
