@@ -5,9 +5,10 @@ var file = new(static.Server)();
 
 // We use the http module’s createServer function and
 // rely on our instance of node-static to serve the files
+var port = process.env.PORT || 8181;
 var app = http.createServer(function (req, res) {
   file.serve(req, res);
-}).listen(8181);
+}).listen(port);
 
 // Use socket.io JavaScript library for real-time web applications
 var io = require('socket.io').listen(app);
